@@ -42,4 +42,8 @@ public class AssetService {
     public void deleteAsset(Integer id) {
         assetRepository.deleteById(id);
     }
+
+	public List<Asset> getByAvailable() {
+		return assetRepository.findByAvailableTrue();
+	}
 }

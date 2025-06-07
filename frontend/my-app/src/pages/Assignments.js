@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import AssignmentTable from '../components/AssignmentTable';
 import AssignmentForm from '../components/AssignmentForm';
-import { getAllAssignments, createAssignment, updateAssignment, deleteAssignment } from '../api/assignmentApi';
+import {
+  getAllAssignments,
+  createAssignment,
+  updateAssignment,
+  deleteAssignment,
+} from '../api/assignmentApi';
 
 function Assignments() {
   const [assignments, setAssignments] = useState([]);
   const [openForm, setOpenForm] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [refreshCounter, setRefreshCounter] = useState(0); // Counter to trigger refresh
 
+  // Fetch data whenever refreshCounter changes
   useEffect(() => {
     fetchAssignments();
-  }, []);
+  }, [refreshCounter]);
 
   const fetchAssignments = async () => {
     const data = await getAllAssignments();
@@ -30,7 +37,7 @@ function Assignments() {
 
   const handleDelete = async (id) => {
     await deleteAssignment(id);
-    fetchAssignments();
+    setRefreshCounter((prev) => prev + 1); // Trigger refresh
   };
 
   const handleSubmit = async (formData) => {
@@ -39,7 +46,7 @@ function Assignments() {
     } else {
       await createAssignment(formData);
     }
-    fetchAssignments();
+    setRefreshCounter((prev) => prev + 1); // Trigger refresh
   };
 
   return (
@@ -48,8 +55,17 @@ function Assignments() {
       <Button variant="primary" onClick={handleAdd} className="mb-4">
         Add Assignment
       </Button>
-      <AssignmentTable assignments={assignments} onEdit={handleEdit} onDelete={handleDelete} />
-      <AssignmentForm open={openForm} onClose={() => setOpenForm(false)} onSubmit={handleSubmit} assignment={selectedAssignment} />
+      <AssignmentTable
+        assignments={assignments}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+      <AssignmentForm
+        open={openForm}
+        onClose={() => setOpenForm(false)}
+        onSubmit={handleSubmit}
+        assignment={selectedAssignment}
+      />
     </Container>
   );
 }

@@ -20,6 +20,12 @@ public class AssetController {
     public List<Asset> getAllAssets() {
         return assetService.getAllAssets();
     }
+   
+   @GetMapping("/isAvailable")
+   public List<Asset> getByAvailable(){
+	   return assetService.getByAvailable();
+   }
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<Asset> getAssetById(@PathVariable Integer id) {

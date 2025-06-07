@@ -7,7 +7,7 @@ function AssetForm({ open, onClose, onSubmit, asset }) {
     serialNumber: "",
     description: "",
     purchaseDate: "",
-    status: "Available",
+    status: "Unassigned",
   });
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function AssetForm({ open, onClose, onSubmit, asset }) {
       serialNumber: "",
       description: "",
       purchaseDate: "",
-      status: "Available",
+      status: "Unassigned",
     });
     onClose();
   };
@@ -78,15 +78,14 @@ function AssetForm({ open, onClose, onSubmit, asset }) {
           <Form.Group className="mb-3">
             <Form.Label>Status</Form.Label>
             <Form.Select
+            disabled
               name="status"
               value={formData.status}
               onChange={handleChange}
             >
               {[
-                "Available",
+                "Unassigned",
                 "Assigned",
-                "Under_Maintenance",
-                "Retired",
               ].map((status) => (
                 <option key={status} value={status}>
                   {status}
