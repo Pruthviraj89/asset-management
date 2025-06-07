@@ -13,7 +13,7 @@ function AssetTable({ assets, onEdit, onDelete }) {
       if (errorMessage.includes('foreign key constraint fails')) {
         setError('Cannot delete asset because it is assigned to an employee');
       } else {
-        setError('Failed to delete asset: ' + errorMessage);
+        setError('Cannot delete asset because it is already assigned to an employee');
       }
     }
   };

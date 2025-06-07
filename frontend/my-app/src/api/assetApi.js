@@ -7,6 +7,12 @@ export const getAllAssets = async () => {
   return response.data;
 };
 
+export const getByAvailable = async () => {
+  const response = await axios.get('http://localhost:8080/api/assets/isAvailable');
+  return response.data;
+};
+
+
 export const getAssetById = async (id) => {
   const response = await axios.get(`${API_URL}/${id}`);
   return response.data;

@@ -23,13 +23,26 @@ public class Asset {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AssetStatus status = AssetStatus.Available;
+    private AssetStatus status = AssetStatus.Unassigned;
+    
+    @Column(name="asset_available")
+    private Boolean available=true;
 
     public enum AssetStatus {
-        Available, Assigned, Under_Maintenance, Retired
+        Unassigned, Assigned
     }
+    
+    
 
-    // Getters and Setters
+    public Boolean getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Boolean available) {
+		this.available = available;
+	}
+
+	// Getters and Setters
     public Integer getAssetId() {
         return assetId;
     }

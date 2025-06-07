@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { getAllAssets } from '../api/assetApi';
+import { getAllAssets,getByAvailable } from '../api/assetApi';
 import { getAllEmployees } from '../api/employeeApi';
 
 function AssignmentForm({ open, onClose, onSubmit, assignment }) {
@@ -14,21 +14,31 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
   const [assets, setAssets] = useState([]);
   const [employees, setEmployees] = useState([]);
 
-  useEffect(() => {
-    if (assignment) {
-      setFormData({
-        asset: { assetId: assignment.asset?.assetId || '' },
-        employee: { employeeId: assignment.employee?.employeeId || '' },
-        assignedDate: assignment.assignedDate || '',
-        returnDate: assignment.returnDate || '',
-        notes: assignment.notes || '',
-      });
-    }
-    fetchData();
-  }, [assignment]);
+ useEffect(() => {
+  if (assignment) {
+    setFormData({
+      asset: { assetId: assignment.asset?.assetId || '' },
+      employee: { employeeId: assignment.employee?.employeeId || '' },
+      assignedDate: assignment.assignedDate || '',
+      returnDate: assignment.returnDate || '',
+      notes: assignment.notes || '',
+    });
+  } else {
+    setFormData({
+      asset: { assetId: '' },
+      employee: { employeeId: '' },
+      assignedDate: '',
+      returnDate: '',
+      notes: '',
+    });
+  }
+
+  fetchData();
+}, [assignment]); // << ADD refreshKey here
+
 
   const fetchData = async () => {
-    const assetsData = await getAllAssets();
+    const assetsData = await getByAvailable();
     const employeesData = await getAllEmployees();
     setAssets(assetsData);
     setEmployees(employeesData);
@@ -45,11 +55,13 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
     }
   };
 
-  const handleSubmit = () => {
-    onSubmit(formData);
-    setFormData({ asset: { assetId: '' }, employee: { employeeId: '' }, assignedDate: '', returnDate: '', notes: '' });
-    onClose();
-  };
+  const handleSubmit = async () => {
+  await onSubmit(formData); // Wait for submission to complete
+  setFormData({ asset: { assetId: '' }, employee: { employeeId: '' }, assignedDate: '', returnDate: '', notes: '' });
+  await fetchData(); // Re-fetch updated list of available assets
+  onClose(); // Then close the modal
+};
+
 
   return (
     <Modal show={open} onHide={onClose}>
