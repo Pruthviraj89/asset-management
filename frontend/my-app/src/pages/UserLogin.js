@@ -7,26 +7,69 @@ import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
 
 function UserLogin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const newErrors = {};
+    
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email address is invalid';
+    }
+    
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Clear field-specific error when user types
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null
+      });
+    }
+    
+    // Clear API error when user makes changes
+    if (apiError) {
+      setApiError(null);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const user = await userLogin(formData);
-      if (typeof user === 'string') {
-        setError(user);
-      } else {
-        login(user);
-        navigate('/');
+    
+    if (validateForm()) {
+      setIsSubmitting(true);
+      try {
+        const user = await userLogin(formData);
+        if (typeof user === 'string') {
+          setApiError(user);
+        } else {
+          login(user);
+          navigate('/');
+        }
+      } catch (err) {
+        setApiError('Invalid email or password. Please try again.');
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (err) {
-      setError('Invalid email or password');
     }
   };
 
@@ -47,8 +90,8 @@ function UserLogin() {
             <h3>User Login</h3>
             <p className="text-muted">Access your assets securely</p>
           </div>
-          {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          {apiError && <Alert variant="danger" className="mb-3">{apiError}</Alert>}
+          <Form onSubmit={handleSubmit} noValidate>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>
                 <FaUser className="me-2" /> Email
@@ -59,9 +102,12 @@ function UserLogin() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter email"
-                required
+                isInvalid={!!errors.email}
                 className="form-control-modern"
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Label>
@@ -73,12 +119,29 @@ function UserLogin() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter password"
-                required
+                isInvalid={!!errors.password}
                 className="form-control-modern"
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.password}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100 btn-modern">
-              <FaSignInAlt className="me-2" /> Login
+            <Button 
+              variant="primary" 
+              type="submit" 
+              className="w-100 btn-modern"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Logging in...
+                </>
+              ) : (
+                <>
+                  <FaSignInAlt className="me-2" /> Login
+                </>
+              )}
             </Button>
           </Form>
           <div className="text-center mt-3">
