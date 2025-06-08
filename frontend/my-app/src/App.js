@@ -1,29 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { ThemeProvider } from './context/ThemeContext';
 import Assets from './pages/Assets';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import Employees from './pages/Employees';
 import Assignments from './pages/Assignments';
 import Login from './pages/Login';
-import Navbar from './components/Navbar';
+import Navigationbar from './components/Navbar';
+import Footer from './components/Footer';
+import AOS from 'aos';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <Navbar />
+      <BrowserRouter>
+        <Navigationbar />
         <Container className="mt-4">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Home />} />
             <Route path="/assets" element={<Assets />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/assignments" element={<Assignments />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </Container>
-      </Router>
+        <Footer />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
