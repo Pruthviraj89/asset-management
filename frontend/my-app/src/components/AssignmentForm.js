@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { getAllAssets, getAllEmployees, createAssignment, getAvailableAssets } from '../api/assetApi.js';
+import { getAllEmployees, getAvailableAssets } from '../api/assetApi.js';
 
 function AssignmentForm({ open, onClose, onSubmit }) {
   const [formData, setFormData] = useState({

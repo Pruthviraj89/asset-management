@@ -3,7 +3,7 @@ import { Navbar as BootstrapNavbar, Nav, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemeContext';
 import { AuthContext } from '../context/AuthContext';
-import { FaSignOutAlt, FaSun, FaMoon } from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 function AdminNavbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);

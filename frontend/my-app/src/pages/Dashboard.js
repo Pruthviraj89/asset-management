@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import { AuthContext } from '../context/AuthContext';
-import { FaChartLine, FaLaptop, FaUsers, FaTasks } from 'react-icons/fa';
+import { FaLaptop, FaUsers, FaTasks } from 'react-icons/fa';
 
 function Dashboard() {
   const { auth } = useContext(AuthContext);
