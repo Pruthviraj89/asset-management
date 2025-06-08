@@ -24,7 +24,7 @@ const Footer = () => {
                         <h5>Asset Management Portal</h5>
                         <p className='text-justify'>
                             RPP Pvt Ltd, Mumbai Branch is a professional organization
-                            dedicated to the promotion and advancement of occupational health in India.
+                            dedicated to the seamless asset assignment to employees getting onboarded.
                         </p>
                     </Col>
                     <Col md={6} className='text-start text-md-end'>

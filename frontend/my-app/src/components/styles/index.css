@@ -77,8 +77,3 @@ video {
   font-family: sans-serif;
   text-align: justify;
 }
-
-body {
-  background-color: rgb(106, 161, 216);
-  min-height: 100vh;
-}
