@@ -31,6 +31,7 @@ function UserLogin() {
   };
 
   return (
+    
     <Container
       fluid
       className="d-flex justify-content-center align-items-center min-vh-100 login-bg p-0"
@@ -43,7 +44,7 @@ function UserLogin() {
             <h3>User Login</h3>
             <p className="text-muted">Access your assets securely</p>
           </div>
-          {error && <Alert variant="danger" className="mb-3">error}</Alert>}
+          {error && <Alert variant="danger" className="mb-3">Invalid Credintial</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>
