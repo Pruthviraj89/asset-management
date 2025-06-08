@@ -75,7 +75,7 @@ function UserDashboard() {
         </Row>
       </Container>
 
-      <Container fluid className="p-0">
+      <Container fluid className="px-3 px-md-4 py-3">
         <Row className="g-0">
           {/* Sidebar */}
           <Col md={2} className="px-3 mb-4">
@@ -153,7 +153,7 @@ function UserDashboard() {
 
       {/* Footer */}
       <Navbar bg="dark" variant="dark" className="footer mt-5 py-4">
-        <Container fluid className="p-0">
+        <Container fluid className="px-3 px-md-4">
           <Nav className="me-auto px-3">
             <Nav.Link href="#" className="text-white mx-2">
               <i className="fas fa-info-circle me-1"></i> About

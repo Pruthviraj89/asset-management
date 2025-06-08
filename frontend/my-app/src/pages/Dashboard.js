@@ -7,7 +7,7 @@ function Dashboard() {
   const { auth } = useContext(AuthContext);
 
   return (
-    <Container  className="py-4">
+    <Container fluid className="py-4 px-3 px-md-4">
       <h2 className="mb-4 text-center">Admin Dashboard</h2>
       <Card className="welcome-card shadow-lg mb-4">
         <Card.Body className="text-center">

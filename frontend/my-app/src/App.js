@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { ThemeProvider } from './context/ThemeContext';
@@ -10,7 +9,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <Container className="mt-4">
+          <Container fluid className="px-0 mt-4">
             <MainRoutes />
           </Container>
         </Router>

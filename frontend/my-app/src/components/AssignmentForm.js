@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { getAllEmployees, getAvailableAssets } from '../api/assetApi.js';
 
-function AssignmentForm({ open, onClose, onSubmit }) {
+function AssignmentForm({ open, onClose, onSubmit, assignment }) {
   const [formData, setFormData] = useState({
     assetId: '',
     employeeId: '',
@@ -26,6 +26,27 @@ function AssignmentForm({ open, onClose, onSubmit }) {
     };
     fetchData();
   }, []);
+  
+  useEffect(() => {
+    if (assignment) {
+      setFormData({
+        assetId: assignment.asset?.assetId || '',
+        employeeId: assignment.employee?.employeeId || '',
+        assignedDate: assignment.assignedDate || '',
+        returnDate: assignment.returnDate || '',
+        notes: assignment.notes || '',
+      });
+    } else {
+      // Reset form when adding a new assignment
+      setFormData({
+        assetId: '',
+        employeeId: '',
+        assignedDate: '',
+        returnDate: '',
+        notes: '',
+      });
+    }
+  }, [assignment]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,7 +74,7 @@ function AssignmentForm({ open, onClose, onSubmit }) {
   return (
     <Modal show={open} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Assignment</Modal.Title>
+        <Modal.Title>{assignment ? 'Edit Assignment' : 'Add Assignment'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>

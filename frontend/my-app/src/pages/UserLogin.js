@@ -35,6 +35,10 @@ function UserLogin() {
       fluid
       className="d-flex justify-content-center align-items-center min-vh-100 login-bg p-0"
     >
+      <video autoPlay muted loop className="login-video">
+        <source src="/assets/login-vid.MOV" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div className="login-overlay"></div>
       <Card className="login-card shadow-lg" style={{ maxWidth: '400px', zIndex: 1 }}>
         <Card.Body className="p-3">
@@ -43,7 +47,7 @@ function UserLogin() {
             <h3>User Login</h3>
             <p className="text-muted">Access your assets securely</p>
           </div>
-          {error && <Alert variant="danger" className="mb-3">error}</Alert>}
+          {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>

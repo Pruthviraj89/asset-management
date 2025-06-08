@@ -16,7 +16,7 @@ function AdminNavbar() {
   };
 
   return (
-    <BootstrapNavbar bg={theme === 'dark' ? 'dark' : 'primary'} variant="dark" expand="lg" className="mb-4 shadow-sm">
+    <BootstrapNavbar bg={theme === 'dark' ? 'dark' : 'primary'} variant="dark" expand="lg" className="shadow-sm" style={{ width: '100%' }}>
       <BootstrapNavbar.Brand as={Link} to="/" className="ms-3">
         <i className="fas fa-laptop-code me-2"></i>AssetFlow
       </BootstrapNavbar.Brand>

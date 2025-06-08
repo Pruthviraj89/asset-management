@@ -1,0 +1,65 @@
+<<<<<<<
+  const handleSubmit = async () => {
+    try {
+      setError(null);
+      
+      // Validate all fields before submission
+      const assetTypeError = validateAssetType(formData.assetType);
+      const serialNumberError = validateSerialNumber(formData.serialNumber);
+      const descriptionError = validateDescription(formData.description);
+      
+      if (assetTypeError || serialNumberError || descriptionError) {
+        setValidationErrors({
+          assetType: assetTypeError,
+          serialNumber: serialNumberError,
+          description: descriptionError
+        });
+        return;
+      }
+      
+      await onSubmit(formData);
+      setFormData({
+        assetType: "",
+        serialNumber: "",
+        description: "",
+        purchaseDate: "",
+        status: "Unassigned",
+      });
+      onClose();
+    } catch (err) {
+      setError(err.message || "Failed to save asset. Please check inputs.");
+    }
+  };
+=======
+  const handleSubmit = async () => {
+    try {
+      setError(null);
+      
+      // Validate all fields before submission
+      const assetTypeError = validateAssetType(formData.assetType);
+      const serialNumberError = validateSerialNumber(formData.serialNumber);
+      const descriptionError = validateDescription(formData.description);
+      
+      if (assetTypeError || serialNumberError || descriptionError) {
+        setValidationErrors({
+          assetType: assetTypeError,
+          serialNumber: serialNumberError,
+          description: descriptionError
+        });
+        return;
+      }
+      
+      await onSubmit(formData);
+      setFormData({
+        assetType: "",
+        serialNumber: "",
+        description: "",
+        purchaseDate: "",
+        status: "Unassigned",
+      });
+      onClose();
+    } catch (err) {
+      // Show backend error message if available
+      setError(err.message || "Failed to save asset. Please check inputs.");
+    }
+  };

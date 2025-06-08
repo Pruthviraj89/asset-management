@@ -87,6 +87,17 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Login video background */
+.login-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 /* Login overlay */
 .login-overlay {
   position: absolute;
@@ -94,7 +105,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
 
@@ -215,4 +226,44 @@ body {
 
 .footer {
   margin-top: auto;
+}
+
+/* Responsive container */
+.container, .container-fluid {
+  width: 100%;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* For specific content areas that need padding */
+.content-area {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Make tables responsive */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Validation styles */
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+/* Form validation text */
+.form-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 80%;
 }

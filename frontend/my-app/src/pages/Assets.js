@@ -25,6 +25,10 @@ function Assets() {
 
   const handleSubmit = async (formData) => {
     try {
+      // Transform empty purchaseDate to null
+      if (formData.purchaseDate === '') {
+        formData.purchaseDate = null;
+      }
       if (selectedAsset) {
         await updateAsset(selectedAsset.assetId, formData);
       } else {
@@ -35,6 +39,10 @@ function Assets() {
       await fetchAssets();
     } catch (error) {
       console.error('Error saving asset:', error);
+      console.error('Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+      if (error.response && error.response.data) {
+        console.error('Backend error response:', error.response.data);
+      }
       throw new Error(error.response?.data?.message || 'Failed to save asset');
     }
   };
@@ -54,7 +62,7 @@ function Assets() {
   };
 
   return (
-    <Container fluid className="p-0">
+    <Container fluid className="px-3 px-md-4 py-3">
       <Card className="shadow-sm">
         <Card.Body>
           <div className="d-flex justify-content-between align-items-center mb-3">

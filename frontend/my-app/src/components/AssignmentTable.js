@@ -3,7 +3,7 @@ import { Table, Button } from 'react-bootstrap';
 
 function AssignmentTable({ assignments, onEdit, onDelete }) {
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive className="table-modern">
       <thead>
         <tr>
           <th>ID</th>

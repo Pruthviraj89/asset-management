@@ -14,14 +14,75 @@ function UserRegister() {
     role: 'USER',
   });
   const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    password: ''
+  });
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasDigit = /[0-9]/.test(password);
+    const hasMinLength = password.length >= 8;
+    
+    if (!hasCapital || !hasSpecial || !hasDigit || !hasMinLength) {
+      let message = 'Password must contain: ';
+      if (!hasMinLength) message += '8+ characters, ';
+      if (!hasCapital) message += 'a capital letter, ';
+      if (!hasDigit) message += 'a digit, ';
+      if (!hasSpecial) message += 'a special character, ';
+      return message.slice(0, -2); // Remove trailing comma and space
+    }
+    return '';
+  };
+
+  const validateEmail = (email) => {
+    if (email.startsWith(' ')) {
+      return 'Email cannot start with spaces';
+    }
+    if (email.includes(' ')) {
+      return 'Email cannot contain spaces';
+    }
+    if (!email.includes('@')) {
+      return 'Email must contain @';
+    }
+    return '';
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Validate on change
+    if (name === 'password') {
+      setValidationErrors({
+        ...validationErrors,
+        password: validatePassword(value)
+      });
+    } else if (name === 'email') {
+      setValidationErrors({
+        ...validationErrors,
+        email: validateEmail(value)
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate before submission
+    const passwordError = validatePassword(formData.password);
+    const emailError = validateEmail(formData.email);
+    
+    if (passwordError || emailError) {
+      setValidationErrors({
+        password: passwordError,
+        email: emailError
+      });
+      return;
+    }
+    
     try {
       await createEmployee(formData);
       navigate('/login');
@@ -85,7 +146,14 @@ function UserRegister() {
                 placeholder="Enter email"
                 required
                 className="form-control-modern"
+                isInvalid={!!validationErrors.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {validationErrors.email}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                Email must not contain spaces and include @
+              </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Label>
@@ -99,7 +167,14 @@ function UserRegister() {
                 placeholder="Enter password"
                 required
                 className="form-control-modern"
+                isInvalid={!!validationErrors.password}
               />
+              <Form.Control.Feedback type="invalid">
+                {validationErrors.password}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                Password must be at least 8 characters and include a capital letter, a digit, and a special character
+              </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDepartment">
               <Form.Label>

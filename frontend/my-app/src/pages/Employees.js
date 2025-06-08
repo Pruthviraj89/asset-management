@@ -43,7 +43,7 @@ function Employees() {
   };
 
   return (
-    <Container>
+    <Container fluid className="px-3 px-md-4">
       <h2 className="my-4">Employees Management</h2>
       <Button variant="primary" onClick={handleAdd} className="mb-4">
         Add Employee
