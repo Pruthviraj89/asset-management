@@ -34,7 +34,6 @@ const AboutUs = () => {
 
   return (
     <Container fluid>
-
       <Row
         ref={(el) => sections.current.push(el)}
         className="position-relative text-center fade-section header-section"
@@ -71,17 +70,6 @@ const AboutUs = () => {
         >
           This platform supports compliance and accountability by maintaining detailed records of asset ownership and transfer history. Built for scalability and security, it aims to enhance operational efficiency and transparency in resource management.
         </p>
-
-      </Container>
-
-      <Container className="mb-5">
-        {/* <Image
-          src="/conference.jpg"
-          alt="Conference Image"
-          fluid
-          ref={(el) => images.current.push(el)}
-          className="fade-section zoom-image"
-        /> */}
       </Container>
 
       <Container fluid className="bg-dark text-white py-5">
@@ -106,7 +94,6 @@ const AboutUs = () => {
               To streamline asset procurement, allocation, and decommission processes using a unified digital platform.
             </li>
           </ul>
-
         </Container>
       </Container>
 
@@ -120,7 +107,6 @@ const AboutUs = () => {
               ref={(el) => images.current.push(el)}
               className="fade-section zoom-image objectives-image"
             />
-
           </Col>
           <Col md={6}>
             <h4 className="text-primary fw-bold mb-3 fade-section" ref={(el) => sections.current.push(el)}>
@@ -140,8 +126,36 @@ const AboutUs = () => {
                 Continuously improves platform features based on feedback and evolving organizational needs.
               </li>
             </ul>
-
           </Col>
+        </Row>
+      </Container>
+
+      {/* Meet the Team Section - moved to the bottom */}
+      <Container className="my-5">
+        <h2
+          className="text-center fw-bold mb-4 fade-section"
+          ref={(el) => sections.current.push(el)}
+        >
+          Meet The Team
+        </h2>
+        <Row className="g-4 text-center">
+          {[
+            { name: "Rohan Sharma", image: "/Rohan.jpg" },
+            { name: "Pruthviraj Mane", image: "/Pruthvi.jpg" },
+            { name: "Pooja Nalawade", image: "/Pooja.jpg" }
+          ].map((dev, index) => (
+            <Col md={4} key={index}>
+              <Image
+                src={dev.image}
+                alt={dev.name}
+                fluid
+                ref={(el) => images.current.push(el)}
+                className="fade-section zoom-image"
+                style={{ height: '400px', objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <h5 className="mt-3">{dev.name}</h5>
+            </Col>
+          ))}
         </Row>
       </Container>
     </Container>
