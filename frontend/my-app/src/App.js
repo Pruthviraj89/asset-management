@@ -10,7 +10,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <Container className="mt-4">
+          <Container fluid className="p-0 m-0" >
             <MainRoutes />
           </Container>
         </Router>
