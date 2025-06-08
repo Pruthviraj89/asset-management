@@ -50,7 +50,7 @@ const AboutUs = () => {
         </h1>
       </Row>
 
-      <Container className="my-5">
+      <Container className="mt-5 mb-5 pt-4 pb-4">
         <h2
           className="fade-section main-heading text-center"
           ref={(el) => sections.current.push(el)}
