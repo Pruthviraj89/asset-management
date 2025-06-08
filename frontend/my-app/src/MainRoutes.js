@@ -10,6 +10,7 @@ import UserRegister from './pages/UserRegister';
 import UserNavbar from './components/UserNavbar';
 import AdminNavbar from './components/Navbar';
 import Home from './pages/Home';
+import AboutUs from './pages/About_Us';
 
 
 function MainRoutes() {
@@ -23,6 +24,7 @@ function MainRoutes() {
         <Route path="/assets" element={auth.isAuthenticated && auth.role === 'ADMIN' ? <Assets /> : <Navigate to="/" />} />
         <Route path="/employees" element={auth.isAuthenticated && auth.role === 'ADMIN' ? <Employees /> : <Navigate to="/" />} />
         <Route path="/assignments" element={auth.isAuthenticated && auth.role === 'ADMIN' ? <Assignments /> : <Navigate to="/" />} />
+        <Route path="/aboutUs" element={auth.isAuthenticated && auth.role === 'ADMIN' ? <AboutUs/> : <Navigate to="/" />} />
         <Route path="/login" element={!auth.isAuthenticated ? <UserLogin /> : <Navigate to="/" />} />
         <Route path="/register" element={!auth.isAuthenticated ? <UserRegister /> : <Navigate to="/" />} />
       </Routes>

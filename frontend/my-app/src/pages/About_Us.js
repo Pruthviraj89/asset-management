@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/AboutUs.css';
+import Footer from '../components/Footer.js';
 
 const AboutUs = () => {
   const sections = useRef([]);
@@ -33,7 +34,8 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <>
+     <Container fluid>
       <Row
         ref={(el) => sections.current.push(el)}
         className="position-relative text-center fade-section header-section"
@@ -159,6 +161,11 @@ const AboutUs = () => {
         </Row>
       </Container>
     </Container>
+    <Footer/>
+    </>
+
+
+   
   );
 };
 
