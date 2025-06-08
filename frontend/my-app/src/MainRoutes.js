@@ -8,7 +8,6 @@ import Assignments from './pages/Assignments';
 import UserDashboard from './pages/UserDashboard';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
-//import Navbar from './components/Navbar';
 import UserNavbar from './components/UserNavbar';
 import AdminNavbar from './components/Navbar';
 

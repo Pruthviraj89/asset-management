@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import EmployeeTable from '../components/EmployeeTable';
 import EmployeeForm from '../components/EmployeeForm';
 import { getAllEmployees, createEmployee, updateEmployee, deleteEmployee } from '../api/employeeApi';
@@ -18,10 +18,7 @@ function Employees() {
     setEmployees(data);
   };
 
-  const handleAdd = () => {
-    setSelectedEmployee(null);
-    setOpenForm(true);
-  };
+ 
 
   const handleEdit = (employee) => {
     setSelectedEmployee(employee);
@@ -45,9 +42,7 @@ function Employees() {
   return (
     <Container>
       <h2 className="my-4">Employees Management</h2>
-      <Button variant="primary" onClick={handleAdd} className="mb-4">
-        Add Employee
-      </Button>
+      
       <EmployeeTable employees={employees} onEdit={handleEdit} onDelete={handleDelete} />
       <EmployeeForm open={openForm} onClose={() => setOpenForm(false)} onSubmit={handleSubmit} employee={selectedEmployee} />
     </Container>

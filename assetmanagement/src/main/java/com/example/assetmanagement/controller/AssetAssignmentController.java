@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/assignments")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AssetAssignmentController {
     @Autowired
     private AssetAssignmentService assetAssignmentService;

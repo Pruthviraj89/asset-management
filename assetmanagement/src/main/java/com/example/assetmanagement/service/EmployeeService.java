@@ -5,6 +5,7 @@ import com.example.assetmanagement.model.EmpRole;
 import com.example.assetmanagement.model.Employee;
 import com.example.assetmanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
@@ -24,6 +28,9 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(Employee employee) {
+    	
+    	employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+    	
         return employeeRepository.save(employee);
     }
     
@@ -33,7 +40,7 @@ public class EmployeeService {
     	
     	
     	if(userE!=null) {
-    		if(employee.getPassword().equals(userE.getPassword()))
+    		if(passwordEncoder.matches(employee.getPassword(), userE.getPassword()))
     			return userE;
     			
     	}
