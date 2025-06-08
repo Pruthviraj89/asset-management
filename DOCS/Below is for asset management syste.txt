@@ -1,0 +1,52 @@
+Below is for asset management system for employee onboard
+
+Database Tables, Attributes & Relationships
+1. employees
+Stores basic details of each fresher/employee.
+
+Column Name	Data Type	Constraints
+employee_id	INT	PRIMARY KEY, AUTO_INCREMENT
+first_name	VARCHAR(50)	NOT NULL
+last_name	VARCHAR(50)	NOT NULL
+email	VARCHAR(100)	UNIQUE, NOT NULL
+department	VARCHAR(50)	NULLABLE
+join_date	DATE	NOT NULL
+
+2. assets
+Stores information about all assets available in the system.
+
+Column Name	Data Type	Constraints
+asset_id	INT	PRIMARY KEY, AUTO_INCREMENT
+asset_name	VARCHAR(100)	NOT NULL
+asset_type	VARCHAR(50)	NOT NULL (e.g., Laptop, Mouse)
+brand	VARCHAR(50)	NULLABLE
+model_number	VARCHAR(100)	NULLABLE
+purchase_date	DATE	NULLABLE
+status	VARCHAR(30)	DEFAULT 'Available' (e.g., Available, Assigned, Under Maintenance)
+
+3. asset_assignments
+Manages which asset is assigned to which employee and when.
+
+Column Name	Data Type	Constraints
+assignment_id	INT	PRIMARY KEY, AUTO_INCREMENT
+asset_id	INT	FOREIGN KEY REFERENCES assets(asset_id) ON DELETE CASCADE
+employee_id	INT	FOREIGN KEY REFERENCES employees(employee_id) ON DELETE CASCADE
+assigned_date	DATE	NOT NULL
+assignment_status	VARCHAR(30)	DEFAULT 'Assigned' (e.g., Assigned, Returned)
+
+4. users (Optional — for login & roles)
+Stores system user credentials and role-based access.
+
+Column Name	Data Type	Constraints
+user_id	INT	PRIMARY KEY, AUTO_INCREMENT
+username	VARCHAR(50)	UNIQUE, NOT NULL
+password	VARCHAR(255)	NOT NULL
+role	VARCHAR(20)	DEFAULT 'EMPLOYEE' (e.g., ADMIN, EMPLOYEE)
+employee_id	INT	FOREIGN KEY REFERENCES employees(employee_id) (nullable if user is admin only)
+
+Relationships Summary
+One employee can have many assigned assets (via asset_assignments).
+
+One asset can only be assigned to one employee at a time, but may be reassigned (historical tracking).
+
+Users table optionally links to employees for authentication.

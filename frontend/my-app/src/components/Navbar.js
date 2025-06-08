@@ -23,10 +23,11 @@ function AdminNavbar() {
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/" className="mx-2">Dashboard</Nav.Link>
-          <Nav.Link as={Link} to="/assets" className="mx-2">Assets</Nav.Link>
-          <Nav.Link as={Link} to="/employees" className="mx-2">Employees</Nav.Link>
-          <Nav.Link as={Link} to="/assignments" className="mx-2">Assignments</Nav.Link>
+         <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav.Link as={Link} to="/assets">Assets</Nav.Link>
+          <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
+          <Nav.Link as={Link} to="/assignments">Assignments</Nav.Link>
+          <Nav.Link as={Link} to="/aboutUs">About Us</Nav.Link>
         </Nav>
         <Nav className="align-items-center">
           <Nav.Link className="text-white mx-2">
