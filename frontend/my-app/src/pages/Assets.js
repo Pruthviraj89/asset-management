@@ -3,6 +3,7 @@ import { Container, Table, Button, Card } from 'react-bootstrap';
 import { getAllAssets, createAsset, updateAsset, deleteAsset } from '../api/assetApi.js';
 import AssetForm from '../components/AssetForm.js';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import Footer from '../components/Footer.js';
 
 function Assets() {
   const [assets, setAssets] = useState([]);
@@ -54,6 +55,7 @@ function Assets() {
   };
 
   return (
+    <>
     <Container fluid className="p-0">
       <Card className="shadow-sm">
         <Card.Body>
@@ -117,6 +119,8 @@ function Assets() {
         asset={selectedAsset}
       />
     </Container>
+    <Footer/>
+    </>
   );
 }
 

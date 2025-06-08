@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import EmployeeTable from '../components/EmployeeTable';
 import EmployeeForm from '../components/EmployeeForm';
 import { getAllEmployees, createEmployee, updateEmployee, deleteEmployee } from '../api/employeeApi';
+import Footer from '../components/Footer';
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -40,12 +41,16 @@ function Employees() {
   };
 
   return (
+    <>
     <Container>
       <h2 className="my-4">Employees Management</h2>
       
       <EmployeeTable employees={employees} onEdit={handleEdit} onDelete={handleDelete} />
       <EmployeeForm open={openForm} onClose={() => setOpenForm(false)} onSubmit={handleSubmit} employee={selectedEmployee} />
     </Container>
+    <Footer/>
+    </>
+    
   );
 }
 

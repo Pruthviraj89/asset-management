@@ -8,6 +8,7 @@ import {
   updateAssignment,
   deleteAssignment,
 } from '../api/assignmentApi';
+import Footer from '../components/Footer.js';
 
 function Assignments() {
   const [assignments, setAssignments] = useState([]);
@@ -50,7 +51,8 @@ function Assignments() {
   };
 
   return (
-    <Container>
+    <>
+     <Container>
       <h2 className="my-4">Asset Assignments</h2>
       <Button variant="primary" onClick={handleAdd} className="mb-4">
         Add Assignment
@@ -67,6 +69,9 @@ function Assignments() {
         assignment={selectedAssignment}
       />
     </Container>
+    <Footer/>
+    </>
+   
   );
 }
 

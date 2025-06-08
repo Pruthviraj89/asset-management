@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import Assets from './pages/Assets';
-import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
 import Assignments from './pages/Assignments';
 import UserDashboard from './pages/UserDashboard';
@@ -11,6 +10,7 @@ import UserRegister from './pages/UserRegister';
 import UserNavbar from './components/UserNavbar';
 import AdminNavbar from './components/Navbar';
 import Home from './pages/Home';
+
 
 function MainRoutes() {
   const { auth } = useContext(AuthContext);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, Container, Row, Col, Spinner, Navbar, Nav } from 'react-bootstrap';
+import { Card, Container, Row, Col, Spinner,  Nav } from 'react-bootstrap';
 import { AuthContext } from '../context/AuthContext';
 import { getAllAssignments } from '../api/assetApi';
 import { FaLaptop, FaCalendarAlt, FaStickyNote, FaChartBar, FaTasks, FaClock, FaGlobe, FaBox, FaUser, FaShieldAlt } from 'react-icons/fa';
+import Footer from '../components/Footer';
 
 function UserDashboard() {
   const [assignments, setAssignments] = useState([]);
@@ -152,32 +153,7 @@ function UserDashboard() {
       </Container>
 
       {/* Footer */}
-      <Navbar bg="dark" variant="dark" className="footer mt-5 py-4">
-        <Container fluid className="p-0">
-          <Nav className="me-auto px-3">
-            <Nav.Link href="#" className="text-white mx-2">
-              <i className="fas fa-info-circle me-1"></i> About
-            </Nav.Link>
-            <Nav.Link href="#" className="text-white mx-2">
-              <i className="fas fa-envelope me-1"></i> Contact
-            </Nav.Link>
-          </Nav>
-          <Nav className="px-3">
-            <Nav.Link href="#" className="text-white mx-2">
-              <i className="fab fa-github"></i>
-            </Nav.Link>
-            <Nav.Link href="#" className="text-white mx-2">
-              <i className="fab fa-linkedin"></i>
-            </Nav.Link>
-            <Nav.Link href="#" className="text-white mx-2">
-              <i className="fab fa-twitter"></i>
-            </Nav.Link>
-          </Nav>
-          <div className="text-white text-center w-100 mt-2 px-3">
-            © 2025 AssetFlow. All rights reserved.
-          </div>
-        </Container>
-      </Navbar>
+    <Footer/>
     </Container>
   );
 }

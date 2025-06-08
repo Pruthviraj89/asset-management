@@ -17,7 +17,7 @@ const Footer = () => {
     );
 
     return (
-        <footer className="text-white py-4 position-relative" style={{ background: "linear-gradient(-165deg,#64d9fd, blue, darkblue)" }}>
+        <footer className=" text-white py-4 position-relative" style={{ background: "linear-gradient(-165deg,#64d9fd, blue, darkblue)" }}>
             <Container>
                 <Row>
                     <Col md={6}>

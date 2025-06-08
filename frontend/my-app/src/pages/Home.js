@@ -12,7 +12,7 @@ function Home() {
                 <Intropara />
             </Container>
             <CardSlider/>
-           
+           <Footer />
         </>
     );
 }
