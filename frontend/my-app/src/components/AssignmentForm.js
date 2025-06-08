@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { getAllAssets,getByAvailable } from '../api/assetApi';
-import { getAllEmployees } from '../api/employeeApi';
+import { getAllAssets, getAllEmployees, createAssignment, getAvailableAssets } from '../api/assetApi.js';
 
-function AssignmentForm({ open, onClose, onSubmit, assignment }) {
+function AssignmentForm({ open, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
-    asset: { assetId: '' },
-    employee: { employeeId: '' },
+    assetId: '',
+    employeeId: '',
     assignedDate: '',
     returnDate: '',
     notes: '',
@@ -14,65 +13,53 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
   const [assets, setAssets] = useState([]);
   const [employees, setEmployees] = useState([]);
 
- useEffect(() => {
-  if (assignment) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const assetsData = await getAvailableAssets();
+        const employeesData = await getAllEmployees();
+        setAssets(assetsData);
+        setEmployees(employeesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    const assignment = {
+      asset: { assetId: parseInt(formData.assetId) },
+      employee: { employeeId: parseInt(formData.employeeId) },
+      assignedDate: formData.assignedDate,
+      returnDate: formData.returnDate || null,
+      notes: formData.notes,
+    };
+    onSubmit(assignment);
     setFormData({
-      asset: { assetId: assignment.asset?.assetId || '' },
-      employee: { employeeId: assignment.employee?.employeeId || '' },
-      assignedDate: assignment.assignedDate || '',
-      returnDate: assignment.returnDate || '',
-      notes: assignment.notes || '',
-    });
-  } else {
-    setFormData({
-      asset: { assetId: '' },
-      employee: { employeeId: '' },
+      assetId: '',
+      employeeId: '',
       assignedDate: '',
       returnDate: '',
       notes: '',
     });
-  }
-
-  fetchData();
-}, [assignment]); // << ADD refreshKey here
-
-
-  const fetchData = async () => {
-    const assetsData = await getByAvailable();
-    const employeesData = await getAllEmployees();
-    setAssets(assetsData);
-    setEmployees(employeesData);
+    onClose();
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'assetId') {
-      setFormData({ ...formData, asset: { assetId: value } });
-    } else if (name === 'employeeId') {
-      setFormData({ ...formData, employee: { employeeId: value } });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleSubmit = async () => {
-  await onSubmit(formData); // Wait for submission to complete
-  setFormData({ asset: { assetId: '' }, employee: { employeeId: '' }, assignedDate: '', returnDate: '', notes: '' });
-  await fetchData(); // Re-fetch updated list of available assets
-  onClose(); // Then close the modal
-};
-
 
   return (
     <Modal show={open} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{assignment ? 'Edit Assignment' : 'Add Assignment'}</Modal.Title>
+        <Modal.Title>Add Assignment</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Asset</Form.Label>
-            <Form.Select name="assetId" value={formData.asset.assetId} onChange={handleChange}>
+            <Form.Select name="assetId" value={formData.assetId} onChange={handleChange}>
               <option value="">Select Asset</option>
               {assets.map((asset) => (
                 <option key={asset.assetId} value={asset.assetId}>
@@ -83,7 +70,7 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Employee</Form.Label>
-            <Form.Select name="employeeId" value={formData.employee.employeeId} onChange={handleChange}>
+            <Form.Select name="employeeId" value={formData.employeeId} onChange={handleChange}>
               <option value="">Select Employee</option>
               {employees.map((employee) => (
                 <option key={employee.employeeId} value={employee.employeeId}>
@@ -99,6 +86,7 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
               name="assignedDate"
               value={formData.assignedDate}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -122,8 +110,12 @@ function AssignmentForm({ open, onClose, onSubmit, assignment }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>Cancel</Button>
-        <Button variant="primary" onClick={handleSubmit}>Save</Button>
+        <Button variant="secondary" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleSubmit}>
+          Save
+        </Button>
       </Modal.Footer>
     </Modal>
   );

@@ -1,5 +1,7 @@
 package com.example.assetmanagement.service;
 
+import com.example.assetmanagement.dto.LoginDto;
+import com.example.assetmanagement.model.EmpRole;
 import com.example.assetmanagement.model.Employee;
 import com.example.assetmanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,25 @@ public class EmployeeService {
     public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
+    
+    public Employee userLogin(LoginDto employee) {
+    	
+    	Employee userE=employeeRepository.findByEmail(employee.getEmail());
+    	
+    	
+    	if(userE!=null) {
+    		if(employee.getPassword().equals(userE.getPassword()))
+    			return userE;
+    			
+    	}
+    	return null;
+    	
+    }
+    
+    
+
+    
+    
 
     public Employee updateEmployee(Integer id, Employee updatedEmployee) {
         Optional<Employee> existingEmployee = employeeRepository.findById(id);

@@ -1,6 +1,7 @@
 package com.example.assetmanagement.model;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
 @Entity
 @Table(name = "Employees")
@@ -80,6 +81,12 @@ public class Employee {
 
 	public void setRole(EmpRole role) {
 		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", department=" + department + ", password=" + password + ", role=" + role + "]";
 	}
     
     

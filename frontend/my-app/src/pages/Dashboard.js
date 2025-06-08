@@ -1,11 +1,52 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import { AuthContext } from '../context/AuthContext';
+import { FaChartLine, FaLaptop, FaUsers, FaTasks } from 'react-icons/fa';
 
 function Dashboard() {
+  const { auth } = useContext(AuthContext);
+
   return (
-    <Container>
-      <h2 className="my-4">Dashboard</h2>
-      <p>Welcome to AssetFlow! Manage assets, employees, and assignments.</p>
+    <Container  className="py-4">
+      <h2 className="mb-4 text-center">Admin Dashboard</h2>
+      <Card className="welcome-card shadow-lg mb-4">
+        <Card.Body className="text-center">
+          <i className="fas fa-user-cog fa-3x text-primary mb-3"></i>
+          <Card.Title>Welcome, {auth.user?.firstName || 'Admin'}!</Card.Title>
+          <Card.Text>
+            Manage your organization’s assets, employees, and assignments efficiently with AssetFlow.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      <Row>
+        <Col md={4} className="mb-4">
+          <Card className="dash-card shadow-sm">
+            <Card.Body>
+              <FaLaptop className="text-primary mb-3" size={30} />
+              <Card.Title>Assets</Card.Title>
+              <Card.Text>View and manage all assets in your inventory.</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4} className="mb-4">
+          <Card className="dash-card shadow-sm">
+            <Card.Body>
+              <FaUsers className="text-primary mb-3" size={30} />
+              <Card.Title>Employees</Card.Title>
+              <Card.Text>Add, update, or remove employee records.</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4} className="mb-4">
+          <Card className="dash-card shadow-sm">
+            <Card.Body>
+              <FaTasks className="text-primary mb-3" size={30} />
+              <Card.Title>Assignments</Card.Title>
+              <Card.Text>Track and assign assets to employees.</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 }

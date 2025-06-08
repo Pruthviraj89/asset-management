@@ -2,8 +2,11 @@ package com.example.assetmanagement.controller;
 
 import com.example.assetmanagement.model.Asset;
 import com.example.assetmanagement.service.AssetService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +37,10 @@ public class AssetController {
     }
 
     @PostMapping
-    public Asset createAsset(@RequestBody Asset asset) {
-        return assetService.createAsset(asset);
+    public ResponseEntity<Asset> createAsset(@RequestBody Asset asset) {
+    	
+    	Asset asseta =assetService.createAsset(asset);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(asseta);
     }
 
     @PutMapping("/{id}")
