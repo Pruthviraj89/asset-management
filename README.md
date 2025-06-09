@@ -152,5 +152,5 @@ cd assetmanagement
 
 ## Limitations
 
-- **Video File**: `login-background.mp4` is excluded due to GitHub’s 100MB file size limit. Add it manually to `frontend/public/assets/`.
+- **Video File**: `login-vid.mp4` is excluded due to GitHub’s 100MB file size limit. Add it manually to `frontend/public/imagess/`.
 - **Sample Data**: Passwords in sample SQL are placeholders; hash them with `BCryptPasswordEncoder` before use.
