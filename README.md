@@ -1,6 +1,8 @@
-# AssetFlow - Asset Management System
+# AssetFlow - Asset Management System for Employee Onboarding
 
-AssetFlow is a full-stack web application for managing organizational assets, featuring secure user authentication and a modern UI with a background video. The backend is built with Spring Boot, using `BCryptPasswordEncoder` for password hashing and MySQL for persistence. The frontend is developed with React, styled with Bootstrap, and includes a dynamic login page with a video background.
+A web-based application to manage the allocation, tracking, and return of IT assets (laptops,
+headsets, mice, etc.) assigned to newly onboarded employees. It ensures efficient asset
+management, real-time tracking, and role-based access for Admin and Employees.
 
 ## Screenshots
 
