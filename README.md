@@ -147,6 +147,9 @@ cd assetmanagement
    - Open `http://localhost:3000/login`.
    - Register or login with sample credentials (e.g., `admin@example.com`/`pass123`).
 
+### Team
+![Teammate](images/aboutB.png)
+
 
 ## Limitations
 
