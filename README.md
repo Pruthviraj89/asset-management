@@ -4,8 +4,6 @@ A web-based application to manage the allocation, tracking, and return of IT ass
 headsets, mice, etc.) assigned to newly onboarded employees. It ensures efficient asset
 management, real-time tracking, and role-based access for Admin and Employees.
 
-## Screenshots
-
 ### About Us
 ![About Us](images/aboutA.png)
 
