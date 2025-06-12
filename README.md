@@ -138,7 +138,7 @@ cd assetmanagement
 
 2. **Frontend**:
    ```bash
-   cd frontend
+   cd frontend/my-app
    npm start
    ```
    - Runs on `http://localhost:3000`.
